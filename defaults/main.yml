@@ -1,0 +1,4 @@
+---
+persister_group: monasca
+persister_user: persister
+log_dir: /var/log/monasca
