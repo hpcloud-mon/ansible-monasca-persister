@@ -5,10 +5,10 @@
 - name: Setup user
   user: name={{persister_user}} system=yes group={{persister_group}}
 
-- name: pip install monasca_perister
+- name: pip install monasca-perister
   pip: name=monasca-persister state=latest
   notify:
-    - restart monasca_persister
+    - restart monasca-persister
 
 - name: create log_dir
   file: path={{log_dir}} state=directory owner={{persister_user}} group={{persister_group}} mode=775
@@ -16,9 +16,9 @@
 - name: create conf_file from template
   template: dest={{conf_file}} owner={{persister_user}} group={{persister_group}} mode=640 src=persister.conf.j2
   notify:
-    - restart monasca_persister
+    - restart monasca-persister
 
 - name: create upstart script
   copy: dest=/etc/init/monasca-persister.conf owner={{persister_user}} group={{persister_group}} mode=640 src=monasca-persister.conf
   notify:
-    - restart monasca_persister
+    - restart monasca-persister

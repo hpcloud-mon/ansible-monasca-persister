@@ -1,3 +1,3 @@
 ---
-- name: Start the service
+- name: restart monasca-persister
   service: name=monasca-persister state=restarted enabled=yes
