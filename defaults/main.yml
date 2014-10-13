@@ -1,4 +1,3 @@
 ---
-persister_group: monasca
-persister_user: persister
+influxdb_db: mon
 log_dir: /var/log/monasca

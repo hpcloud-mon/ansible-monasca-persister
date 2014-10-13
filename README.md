@@ -1,13 +1,11 @@
 #monasca-persister
 Installs the [monasca-persister](https://github.com/stackforge/monasca-persister) part of the [Monasca](https://wiki.openstack.org/wiki/Monasca) project.
 
-##Example Playbook
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+Requires Variables be defined for:
+- kafka_uri - A comma seperated list of kafka hosts with optional port
+- influxdb_host
+- influxdb_user
+- influxdb_password
 
 ##License
 Apache
