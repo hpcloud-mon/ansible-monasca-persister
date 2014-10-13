@@ -1,6 +1,7 @@
 #monasca-persister
 Installs the [monasca-persister](https://github.com/stackforge/monasca-persister) part of the [Monasca](https://wiki.openstack.org/wiki/Monasca) project.
 
+##Requirements
 Requires Variables be defined for:
 - kafka_uri - A comma seperated list of kafka hosts with optional port
 - influxdb_host
