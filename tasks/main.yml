@@ -19,6 +19,6 @@
     - restart monasca-persister
 
 - name: create upstart script
-  copy: dest=/etc/init/monasca-persister.conf owner={{persister_user}} group={{persister_group}} mode=640 src=monasca-persister.conf
+  copy: dest=/etc/init/monasca-persister.conf owner=root group=root mode=644 src=monasca-persister.conf
   notify:
     - restart monasca-persister
