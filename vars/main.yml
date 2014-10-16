@@ -1,4 +1,4 @@
 ---
-conf_file: /etc/monasca/persister.conf
+persister_conf_file: /etc/monasca/persister.conf
 persister_user: persister
 persister_group: monasca
