@@ -11,7 +11,7 @@
     - restart monasca-persister
 
 - name: create log_dir
-  file: path={{monasca_log_dir}} state=directory owner={{persister_user}} group={{persister_group}} mode=775
+  file: path={{monasca_log_dir}} state=directory owner=root group={{persister_group}} mode=775
 
 - name: create conf_file from template
   template: dest={{persister_conf_file}} owner={{persister_user}} group={{persister_group}} mode=640 src=persister.conf.j2
