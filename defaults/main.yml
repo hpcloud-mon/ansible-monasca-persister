@@ -1,3 +1,4 @@
 ---
 influxdb_db: mon
+monasca_conf_dir: /etc/monasca
 monasca_log_dir: /var/log/monasca
