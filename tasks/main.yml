@@ -1,9 +1,9 @@
 ---
 - name: setup group
-  group: name={{persister_group}} system=yes
+  group: name={{monasca_group}} system=yes
 
 - name: Setup user
-  user: name={{persister_user}} system=yes group={{persister_group}}
+  user: name={{persister_user}} system=yes group={{monasca_group}}
 
 - name: pip install monasca-perister
   pip: name=monasca-persister state=latest
@@ -11,13 +11,13 @@
     - restart monasca-persister
 
 - name: create log_dir
-  file: path={{monasca_log_dir}} state=directory owner=root group={{persister_group}} mode=775
+  file: path={{monasca_log_dir}} state=directory owner=root group={{monasca_group}} mode=775
 
 - name: create conf_dir
-  file: path={{monasca_conf_dir}} state=directory owner=root group={{persister_group}} mode=775
+  file: path={{monasca_conf_dir}} state=directory owner=root group={{monasca_group}} mode=775
 
 - name: create conf_file from template
-  template: dest={{persister_conf_file}} owner={{persister_user}} group={{persister_group}} mode=640 src=persister.conf.j2
+  template: dest={{persister_conf_file}} owner={{persister_user}} group={{monasca_group}} mode=640 src=persister.conf.j2
   notify:
     - restart monasca-persister
 
