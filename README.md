@@ -8,6 +8,18 @@ Requires Variables be defined for:
 - influxdb_user
 - influxdb_password
 
+##Example Playbook
+
+    hosts: monasca
+    sudo: yes
+    roles:
+      - {role: tkuhlman.monasca-persister,
+         kafka_uri: "{{kafka_hosts}}",
+         influxdb_user: "{{persister_influxdb_user}}",
+         influxdb_password: "{{persister_influxdb_password}}",
+         tags: [persister]}
+    
+
 ##License
 Apache
 
