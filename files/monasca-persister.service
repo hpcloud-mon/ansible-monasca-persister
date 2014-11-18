@@ -1,0 +1,13 @@
+[Unit]
+Description=Monasca Persister
+After=kafka.service influxdb.service
+
+[Service]
+Type=simple
+User=persister
+Group=monasca
+Restart=on-failure
+ExecStart=/usr/local/bin/monasca-persister --config-file /etc/monasca/persister.conf
+
+[Install]
+WantedBy=multi-user.target
