@@ -1,7 +1,12 @@
 [DEFAULT]
 log_file = persister.log
 log_dir = {{monasca_log_dir}}
-log_level = INFO
+# Default log level is WARNING
+# Show debugging output in logs (sets DEBUG log level output)
+debug = false
+# Show more verbose log output (sets INFO log level output) if debug is False
+verbose = true
+
 
 [kafka]
 #Comma separated list of hosts.
