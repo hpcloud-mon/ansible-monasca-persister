@@ -28,9 +28,10 @@ batch_size = 1000
 max_wait_time_seconds = 30
 
 [influxdb]
-database_name = test
-ip_address = 192.168.10.4
+database_name = {{influxdb_db}}
+ip_address = {{influxdb_host}}
 port = 8086
-user = root
-password = root
+user = {{influxdb_user}}
+password = {{influxdb_password}}
+
 
