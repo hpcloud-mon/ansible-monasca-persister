@@ -8,7 +8,7 @@ debug = false
 verbose = true
 
 [kafka_alarm_history]
-#Comma separated list of hosts.
+#Comma separated list of broker hosts.
 uri = {{kafka_uri}}
 group_id = 1_alarm-state-transitions
 topic = alarm-state-transitions
@@ -18,7 +18,7 @@ batch_size = 1000
 max_wait_time_seconds = 30
 
 [kafka_metrics]
-#Comma separated list of hosts.
+#Comma separated list of broker hosts.
 uri = {{kafka_uri}}
 group_id = 1_metrics
 topic = metrics
