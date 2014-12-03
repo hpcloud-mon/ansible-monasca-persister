@@ -3,6 +3,7 @@ Installs the [monasca-persister](https://github.com/stackforge/monasca-persister
 
 ##Requirements
 Requires Variables be defined for:
+- zookeeper_uri - A comma seperated list of kafka hosts with optional port
 - kafka_uri - A comma seperated list of kafka hosts with optional port
 - influxdb_host
 - influxdb_user
