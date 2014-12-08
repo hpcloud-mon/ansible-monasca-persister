@@ -1,10 +1,24 @@
 #monasca-persister
 Installs the [monasca-persister](https://github.com/stackforge/monasca-persister) part of the [Monasca](https://wiki.openstack.org/wiki/Monasca) project.
+There are two implementations of the persister, one Java based and one Python based. This will install the Java based one by default. To install
+the python persister rather than the java version set the variable `monasca_persister_java` to False.
 
-##Requirements
+##Java Requirements
+
 Requires Variables be defined for:
-- zookeeper_uri - A comma seperated list of kafka hosts with optional port
-- kafka_uri - A comma seperated list of kafka hosts with optional port
+- zookeeper_hosts - A comma seperated list of kafka hosts with optional port
+- kafka_hosts - A comma seperated list of kafka hosts with optional port
+- influxdb_url
+- influxdb_user
+- influxdb_password
+
+If running in a cluster each box in the cluster must have a different `monasca_persister_consumer_id` set. This defaults to `0`
+
+##Python Requirements
+
+Requires Variables be defined for:
+- zookeeper_hosts - A comma seperated list of kafka hosts with optional port
+- kafka_hosts - A comma seperated list of kafka hosts with optional port
 - influxdb_host
 - influxdb_user
 - influxdb_password
@@ -15,7 +29,9 @@ Requires Variables be defined for:
     sudo: yes
     roles:
       - {role: tkuhlman.monasca-persister,
-         kafka_uri: "{{kafka_hosts}}",
+         kafka_hosts: "{{kafka_hosts}}",
+         zookeeper_hosts: "{{zookeeper_hosts}}",
+         influxdb_url: "http://{{mini_mon_host}}:8086",
          influxdb_user: "{{persister_influxdb_user}}",
          influxdb_password: "{{persister_influxdb_password}}",
          tags: [persister]}

@@ -1,0 +1,18 @@
+---
+- name: apt install monasca-persister
+  apt: name=monasca-persister state=latest
+  notify:
+    - restart monasca-persister
+
+- name: create conf_file from template
+  template: dest={{persister_java_conf_file}} owner={{persister_user}} group={{monasca_group}} mode=640 src=persister-config.yml.j2
+  notify:
+    - restart monasca-persister
+
+# Note: the deb package comes with an upstart script used when the distribution is trusty.
+- name: create systemd config
+  copy: dest={{persister_systemd_service}} owner=root group=root mode=644 src=monasca-persister-java.service
+  notify:
+    - restart monasca-persister
+  when: ansible_distribution_release != 'trusty'
+
