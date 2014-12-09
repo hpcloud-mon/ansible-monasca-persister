@@ -1,6 +1,7 @@
 ---
 persister_conf_dir: /etc/monasca
-persister_conf_file: /etc/monasca/persister.conf
+persister_java_conf_file: /etc/monasca/persister-config.yml
+persister_python_conf_file: /etc/monasca/persister.conf
 persister_systemd_service: /etc/systemd/system/monasca-persister.service
 persister_upstart_conf: /etc/init/monasca-persister.conf
 persister_user: persister
