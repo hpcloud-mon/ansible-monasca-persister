@@ -21,3 +21,7 @@
     - restart monasca-persister
   when: ansible_distribution_release != 'trusty'
 
+- meta: flush_handlers
+
+- name: Enable monasca-persister
+  service: name=monasca-persister state=started enabled=yes
