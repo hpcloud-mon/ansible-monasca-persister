@@ -2,7 +2,10 @@
 influxdb_db: mon
 monasca_conf_dir: /etc/monasca
 monasca_log_dir: /var/log/monasca
+monasca_jar_dir: /opt/monasca
 monasca_persister_java: True
+persister_version: 1.0.0-SNAPSHOT
+persister_tarball_base_url: http://tarballs.openstack.org/ci/monasca-persister
 
 # Java Persister defaults
 monasca_persister_consumer_id: 0

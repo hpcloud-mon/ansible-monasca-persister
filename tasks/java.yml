@@ -1,6 +1,9 @@
 ---
-- name: apt install monasca-persister
-  apt: name=monasca-persister state=latest
+- name: create jar_dir
+  file: path={{monasca_jar_dir}} state=directory owner=root group=root mode=755
+
+- name: Fetch persister jar
+  get_url: dest={{monasca_jar_dir}}/monasca-persister.jar url="{{persister_tarball_base_url}}/monasca-persister-{{persister_version}}-shaded.jar"
   notify:
     - restart monasca-persister
 
@@ -15,6 +18,12 @@
   notify:
     - restart monasca-persister
   when: ansible_distribution_release != 'trusty'
+
+- name: create service script from template
+  template: dest=/etc/init/monasca-persister.conf owner=root group=root mode=744 src=monasca-persister.conf.j2
+  notify:
+    - restart monasca-persister
+  when: ansible_distribution_release == 'trusty'
 
 - meta: flush_handlers
 
