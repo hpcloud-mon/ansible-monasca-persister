@@ -21,7 +21,7 @@ metricConfiguration:
   clientId : 1
 
 #Kafka settings.
-kafkaConfiguration:
+kafkaConfig:
 # See http://kafka.apache.org/documentation.html#api for semantics and defaults.
   zookeeperConnect: {{ zookeeper_hosts }}
   socketTimeoutMs: 30000
@@ -39,7 +39,7 @@ kafkaConfiguration:
   zookeeperConnectionTimeoutMs : 60000
   zookeeperSyncTimeMs: 2000
 
-verticaMetricRepositoryConfiguration:
+verticaMetricRepoConfig:
   maxCacheSize: 2000000
 
 databaseConfiguration:
