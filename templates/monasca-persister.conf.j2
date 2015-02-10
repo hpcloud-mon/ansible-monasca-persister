@@ -8,4 +8,4 @@ respawn
 
 setgid monasca
 setuid persister
-exec /usr/bin/java -Dfile.encoding=UTF-8 -Xmx8g -cp {{monasca_jar_dir}}/monasca-persister.jar:{{monasca_jar_dir}}/vertica/vertica_jdbc.jar monasca.persister.PersisterApplication server {{monasca_conf_dir}}/persister-config.yml
+exec /usr/bin/java -Dfile.encoding=UTF-8 -Xmx8g -cp {{monasca_jar_dir}}/monasca-persister.jar:{{monasca_jar_dir}}/vertica/vertica_jdbc.jar monasca.persister.PersisterApplication server {{ persister_java_conf_file }}
