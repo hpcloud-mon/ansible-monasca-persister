@@ -21,6 +21,10 @@
     - restart monasca-persister
   when: ansible_distribution_release != 'trusty'
 
+- name: Run systemctl daemon-reload
+  command: systemctl daemon-reload
+  when: ansible_distribution_release != 'trusty'
+
 - name: create service script from template
   template: dest=/etc/init/monasca-persister.conf owner=root group=root mode=744 src=monasca-persister.conf.j2
   notify:
