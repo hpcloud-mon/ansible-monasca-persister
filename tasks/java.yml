@@ -15,21 +15,20 @@
   notify:
     - restart monasca-persister
 
-- name: create systemd config
+- name: create systemd startup script
   copy: dest={{persister_systemd_service}} owner=root group=root mode=644 src=monasca-persister-java.service
   notify:
     - restart monasca-persister
-  when: ansible_distribution_release != 'trusty'
+  when: use_systemd
 
-- name: Run systemctl daemon-reload
-  command: systemctl daemon-reload
-  when: ansible_distribution_release != 'trusty'
+- command: systemctl daemon-reload
+  when: use_systemd
 
-- name: create service script from template
+- name: create upstart script from template
   template: dest=/etc/init/monasca-persister.conf owner=root group=root mode=744 src=monasca-persister.conf.j2
   notify:
     - restart monasca-persister
-  when: ansible_distribution_release == 'trusty'
+  when: not use_systemd
 
 - meta: flush_handlers
 

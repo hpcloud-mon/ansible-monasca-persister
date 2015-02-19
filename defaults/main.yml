@@ -9,3 +9,4 @@ persister_tarball_base_url: http://tarballs.openstack.org/ci/monasca-persister
 
 # Java Persister defaults
 monasca_persister_consumer_id: 0
+
