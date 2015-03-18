@@ -48,6 +48,15 @@ databaseConfiguration:
 
 # Uncomment if databaseType is influxdb
 influxDbConfiguration:
+{% if influxdb_version | version_compare( '0.9', '>=') %}
+  version: V9
+  # Retention policy may be left blank to indicate default policy.
+  retentionPolicy:
+  # Used only if version is V9.
+  maxHttpConnections: 100
+{% else %}
+  version: V8
+{% endif %}
   name: {{ influxdb_db }}
   replicationFactor: 1
   url: {{ influxdb_url }}
