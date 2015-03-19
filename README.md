@@ -11,6 +11,7 @@ Requires Variables be defined for:
 - influxdb_url
 - influxdb_user
 - influxdb_password
+- influxdb_version
 
 If running in a cluster each box in the cluster must have a different `monasca_persister_consumer_id` set. This defaults to `0`
 
