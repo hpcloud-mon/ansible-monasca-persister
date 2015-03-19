@@ -23,6 +23,7 @@ Requires Variables be defined for:
 - influxdb_host
 - influxdb_user
 - influxdb_password
+- influxdb_version
 
 ##Example Playbook
 
