@@ -108,8 +108,8 @@ logging:
     - type: file
       threshold: INFO
       archive: true
-      currentLogFilename: {{ monasca_log_dir }}/monasca-persister.log
-      archivedLogFilenamePattern: {{ monasca_log_dir }}/monasca-persister.log-%d.log.gz
+      currentLogFilename: {{ persister_log_dir }}/monasca-persister.log
+      archivedLogFilenamePattern: {{ persister_log_dir }}/monasca-persister.log-%d.log.gz
       archivedFileCount: 5
       # The timezone used to format dates. HINT: USE THE DEFAULT, UTC.
       timeZone: UTC
