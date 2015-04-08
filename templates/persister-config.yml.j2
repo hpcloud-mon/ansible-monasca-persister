@@ -7,7 +7,7 @@ alarmHistoryConfiguration:
 # See http://kafka.apache.org/documentation.html#api for semantics and defaults.
   topic: alarm-state-transitions
   groupId: 1_alarm-state-transitions
-  consumerId: {{ monasca_persister_consumer_id }}
+  consumerId: {{ ansible_fqdn }}
   clientId : 1
 
 metricConfiguration:
@@ -17,7 +17,7 @@ metricConfiguration:
 # See http://kafka.apache.org/documentation.html#api for semantics and defaults.
   topic: metrics
   groupId: 1_metrics
-  consumerId: {{ monasca_persister_consumer_id }}
+  consumerId: {{ ansible_fqdn }}
   clientId : 1
 
 #Kafka settings.
