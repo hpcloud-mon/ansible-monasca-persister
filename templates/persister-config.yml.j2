@@ -56,9 +56,9 @@ influxDbConfiguration:
   maxHttpConnections: 100
 {% else %}
   version: V8
+  replicationFactor: 1
 {% endif %}
   name: {{ influxdb_db }}
-  replicationFactor: 1
   url: {{ influxdb_url }}
   user: {{ influxdb_user }}
   password: {{ influxdb_password }}
