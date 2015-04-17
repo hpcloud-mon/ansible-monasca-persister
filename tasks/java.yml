@@ -16,8 +16,8 @@
   notify:
     - restart monasca-persister
 
-- name: create systemd startup script
-  copy: dest={{persister_systemd_service}} owner=root group=root mode=644 src=monasca-persister-java.service
+- name: create systemd startup script from template
+  template: dest={{persister_systemd_service}} owner=root group=root mode=644 src=monasca-persister-java.service.j2
   notify:
     - restart monasca-persister
   when: use_systemd
@@ -26,7 +26,7 @@
   when: use_systemd
 
 - name: create upstart script from template
-  template: dest=/etc/init/monasca-persister.conf owner=root group=root mode=744 src=monasca-persister.conf.j2
+  template: dest=/etc/init/monasca-persister.conf owner=root group=root mode=744 src=monasca-persister-java.conf.j2
   notify:
     - restart monasca-persister
   when: not use_systemd
