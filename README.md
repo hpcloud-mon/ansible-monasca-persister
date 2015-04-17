@@ -11,7 +11,6 @@ Requires Variables be defined for:
 - influxdb_url
 - influxdb_user
 - influxdb_password
-- influxdb_version
 
 ##Python Requirements
 
