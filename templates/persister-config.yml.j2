@@ -108,11 +108,10 @@ logging:
       # The timezone used to format dates. HINT: USE THE DEFAULT, UTC.
       timeZone: UTC
 
-# Set the persister ports to 8090/8091 to avoid conflict with the api
 server:
   applicationConnectors:
     - type: http
-      port: 8090
+      port: {{ persister_app_connector_port }}
   adminConnectors:
     - type: http
-      port: 8091
+      port: {{ persister_admin_connector_port }}

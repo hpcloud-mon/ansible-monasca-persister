@@ -6,5 +6,7 @@ monasca_jar_dir: /opt/monasca
 monasca_persister_java: True
 persister_version: 1.1.0-SNAPSHOT
 persister_tarball_base_url: http://tarballs.openstack.org/ci/monasca-persister
+persister_admin_connector_port: 8091
+persister_app_connector_port: 8090
 
 skip_install: False
