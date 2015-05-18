@@ -57,12 +57,24 @@ influxDbConfiguration:
   user: {{ influxdb_user }}
   password: {{ influxdb_password }}
 
+{% set vertica_persister_user = [] %}
+{% for item in vertica_users %}
+{% if item.role == 'monasca_persister'%}
+{% if vertica_persister_user.append(item) %}{% endif %}
+{% endif %}
+{% endfor %}
+
 # Uncomment if databaseType is vertica
 dataSourceFactory:
   driverClass: com.vertica.jdbc.Driver
   url: {{ vertica_url | default('jdbc:vertica://localhost:5433/mon') }}
-  user: dbadmin
-  password: {{ vertica_dbadmin_password | default('password')}}
+{% if vertica_persister_user|count == 0%}
+  user: mon_persister
+  password: password
+{% else %}
+  user: {{ vertica_persister_user[0].username }}
+  password: {{ vertica_persister_user[0].password }}
+{% endif %}
   properties:
       ssl: false
   # the maximum amount of time to wait on an empty pool before throwing an exception
