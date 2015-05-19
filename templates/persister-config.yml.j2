@@ -58,11 +58,13 @@ influxDbConfiguration:
   password: {{ influxdb_password }}
 
 {% set vertica_persister_user = [] %}
+{% if vertica_users is defined %}
 {% for item in vertica_users %}
 {% if item.role == 'monasca_persister'%}
 {% if vertica_persister_user.append(item) %}{% endif %}
 {% endif %}
 {% endfor %}
+{% endif %}
 
 # Uncomment if databaseType is vertica
 dataSourceFactory:
