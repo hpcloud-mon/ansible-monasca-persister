@@ -2,6 +2,7 @@
 influxdb_db: mon
 monasca_conf_dir: /etc/monasca
 monasca_log_dir: /var/log/monasca
+monasca_log_level: WARN
 monasca_jar_dir: /opt/monasca
 monasca_persister_java: True
 monasca_persister_java_opts: -Xmx1g
