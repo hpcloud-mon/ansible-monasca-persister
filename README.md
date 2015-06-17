@@ -22,6 +22,10 @@ Requires Variables be defined for:
 - influxdb_password
 - influxdb_version
 
+## Optional
+
+- run_mode: One of Deploy, Stop, Install, Configure or Start. The default is Deploy which will do Install, Configure, then Start.
+
 ##Example Playbook
 
     hosts: monasca
