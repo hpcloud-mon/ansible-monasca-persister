@@ -1,10 +1,4 @@
 ---
-- name: pip install monasca-perister
-  pip: name=monasca-persister state=latest
-  notify:
-    - restart monasca-persister
-  when: not skip_install
-
 - name: create conf_file from template
   template: dest={{persister_python_conf_file}} owner={{persister_user}} group={{monasca_group}} mode=640 src=persister.conf.j2
   notify:
@@ -26,6 +20,3 @@
   when: use_systemd
 
 - meta: flush_handlers
-
-- name: Enable monasca-persister
-  service: name=monasca-persister state=started enabled=yes

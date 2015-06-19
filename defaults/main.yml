@@ -1,4 +1,5 @@
 ---
+database_type: influxdb
 influxdb_db: mon
 monasca_conf_dir: /etc/monasca
 monasca_log_dir: /var/log/monasca
@@ -10,6 +11,5 @@ persister_version: 1.1.0-SNAPSHOT
 persister_tarball_base_url: http://tarballs.openstack.org/ci/monasca-persister
 persister_admin_connector_port: 8091
 persister_app_connector_port: 8090
-database_type: influxdb
-
+run_mode: deploy
 skip_install: False

@@ -1,0 +1,5 @@
+---
+- name: pip install monasca-perister
+  pip: name=monasca-persister state=latest
+  notify:
+    - restart monasca-persister

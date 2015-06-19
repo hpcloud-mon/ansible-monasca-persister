@@ -1,3 +1,4 @@
 ---
 - name: restart monasca-persister
   service: name=monasca-persister state=restarted enabled=yes
+  when: run_mode == 'Deploy'

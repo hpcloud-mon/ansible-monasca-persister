@@ -1,7 +1,4 @@
 ---
-- name: create jar_dir
-  file: path={{monasca_jar_dir}} state=directory owner=root group=root mode=755
-
 - name: create vertica dir
   file: path={{monasca_jar_dir}}/vertica state=directory owner=root group=root mode=755
   register: create_directory
@@ -14,12 +11,6 @@
 - name: Ensure vertica jdbc permissions
   file: path={{monasca_jar_dir}}/vertica/vertica_jdbc.jar mode=644
   when: database_type == 'vertica'
-
-- name: Fetch persister jar
-  get_url: dest={{monasca_jar_dir}}/monasca-persister.jar url="{{persister_tarball_base_url}}/monasca-persister-{{persister_version}}-shaded.jar" force=yes
-  notify:
-    - restart monasca-persister
-  when: not skip_install
 
 - name: create conf_dir
   file: path={{monasca_conf_dir}} state=directory owner=root group={{monasca_group}} mode=775
@@ -45,6 +36,3 @@
   when: not use_systemd
 
 - meta: flush_handlers
-
-- name: Enable monasca-persister
-  service: name=monasca-persister state=started enabled=yes
