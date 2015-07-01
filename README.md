@@ -37,7 +37,7 @@ Requires Variables be defined for:
          influxdb_user: "{{persister_influxdb_user}}",
          influxdb_password: "{{persister_influxdb_password}}",
          tags: [persister]}
-    
+
 ##Running with Vertica
 
 To run with vertica you must pass in the change the variable database_type to vertica in defaults or add it in the call to the role.
