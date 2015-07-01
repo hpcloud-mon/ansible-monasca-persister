@@ -7,7 +7,7 @@ alarmHistoryConfiguration:
 # See http://kafka.apache.org/documentation.html#api for semantics and defaults.
   topic: alarm-state-transitions
   groupId: 1_alarm-state-transitions
-  consumerId: {{ ansible_fqdn }}
+  consumerId: "{{ ansible_fqdn }}"
   clientId : 1
 
 metricConfiguration:
@@ -17,13 +17,13 @@ metricConfiguration:
 # See http://kafka.apache.org/documentation.html#api for semantics and defaults.
   topic: metrics
   groupId: 1_metrics
-  consumerId: {{ ansible_fqdn }}
+  consumerId: "{{ ansible_fqdn }}"
   clientId : 1
 
 #Kafka settings.
 kafkaConfig:
 # See http://kafka.apache.org/documentation.html#api for semantics and defaults.
-  zookeeperConnect: {{ zookeeper_hosts }}
+  zookeeperConnect: "{{ zookeeper_hosts }}"
   socketTimeoutMs: 30000
   socketReceiveBufferBytes : 65536
   fetchMessageMaxBytes: 1048576
@@ -52,10 +52,10 @@ influxDbConfiguration:
   retentionPolicy:
   maxHttpConnections: 100
   gzip: true
-  name: {{ influxdb_db }}
-  url: {{ influxdb_url }}
-  user: {{ influxdb_user }}
-  password: {{ influxdb_password }}
+  name: "{{ influxdb_db }}"
+  url: "{{ influxdb_url }}"
+  user: "{{ influxdb_user }}"
+  password: "{{ influxdb_password }}"
 
 {% set vertica_persister_user = [] %}
 {% if vertica_users is defined %}
@@ -69,13 +69,13 @@ influxDbConfiguration:
 # Uncomment if databaseType is vertica
 dataSourceFactory:
   driverClass: com.vertica.jdbc.Driver
-  url: {{ vertica_url | default('jdbc:vertica://localhost:5433/mon') }}
+  url: "{{ vertica_url | default('jdbc:vertica://localhost:5433/mon') }}"
 {% if vertica_persister_user|count == 0%}
   user: mon_persister
   password: password
 {% else %}
-  user: {{ vertica_persister_user[0].username }}
-  password: {{ vertica_persister_user[0].password }}
+  user: "{{ vertica_persister_user[0].username }}"
+  password: "{{ vertica_persister_user[0].password }}"
 {% endif %}
   properties:
       ssl: false
@@ -116,8 +116,8 @@ logging:
     - type: file
       threshold: INFO
       archive: true
-      currentLogFilename: {{ persister_log_dir }}/monasca-persister.log
-      archivedLogFilenamePattern: {{ persister_log_dir }}/monasca-persister.log-%d.log.gz
+      currentLogFilename: "{{ persister_log_dir }}/monasca-persister.log"
+      archivedLogFilenamePattern: "{{ persister_log_dir }}/monasca-persister.log-%d.log.gz"
       archivedFileCount: 5
       # The timezone used to format dates. HINT: USE THE DEFAULT, UTC.
       timeZone: UTC
