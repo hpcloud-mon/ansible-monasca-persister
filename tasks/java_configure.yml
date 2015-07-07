@@ -35,4 +35,3 @@
     - restart monasca-persister
   when: not use_systemd
 
-- meta: flush_handlers

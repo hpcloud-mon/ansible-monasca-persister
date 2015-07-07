@@ -27,3 +27,5 @@
 
 - include: python_configure.yml
   when: not monasca_persister_java
+
+- meta: flush_handlers
