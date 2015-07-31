@@ -16,3 +16,6 @@ skip_install: False
 monasca_persister_version: 0.1.12
 monasca_virtualenv_dir: /opt/monasca
 
+# flag to track restart requirement during reconfigure
+monasca_persister_restart_required: false
+

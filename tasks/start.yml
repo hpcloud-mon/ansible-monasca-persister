@@ -1,3 +1,7 @@
 ---
-- name: Start and Enable monasca-persister
+- name: monasca-persister | restart | restart monasca-persister service
+  service: name=monasca-persister state=restarted enabled=yes
+  when: monasca_persister_restart_required
+
+- name: monasca-persister | start | start monasca-persister service
   service: name=monasca-persister state=started enabled=yes
