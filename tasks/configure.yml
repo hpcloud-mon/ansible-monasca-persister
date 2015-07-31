@@ -1,18 +1,28 @@
 ---
 - name: setup group
   group: name={{monasca_group}} system=yes
+  notify:
+    - monasca_persister_config_change
 
 - name: Setup user
   user: name={{persister_user}} system=yes group={{monasca_group}}
+  notify:
+    - monasca_persister_config_change
 
 - name: create monasca log directory
   file: path={{monasca_log_dir}} state=directory owner=root group={{monasca_group}} mode=775
+  notify:
+    - monasca_persister_config_change
 
 - name: create persister log directory
   file: path={{persister_log_dir}} state=directory owner=root group={{monasca_group}} mode=775
+  notify:
+    - monasca_persister_config_change
 
 - name: create conf_dir
   file: path={{monasca_conf_dir}} state=directory owner=root group={{monasca_group}} mode=775
+  notify:
+    - monasca_persister_config_change
 
 - name: Detect if this is a systemd based system
   command: cat /proc/1/comm
