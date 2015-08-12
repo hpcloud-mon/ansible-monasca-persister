@@ -1,4 +1,6 @@
 ---
+# ©Copyright 2015 Hewlett-Packard Development Company, L.P.
+
 - name: create conf_file from template
   template: dest={{persister_python_conf_file}} owner={{persister_user}} group={{monasca_group}} mode=640 src=persister.conf.j2
   notify:

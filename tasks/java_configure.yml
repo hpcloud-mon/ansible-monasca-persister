@@ -1,4 +1,6 @@
 ---
+# ©Copyright 2015 Hewlett-Packard Development Company, L.P.
+
 - name: create vertica dir
   file: path={{monasca_jar_dir}}/vertica state=directory owner=root group=root mode=755
   when: database_type == 'vertica'
