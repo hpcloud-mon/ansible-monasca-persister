@@ -130,4 +130,6 @@ server:
     - type: http
       port: {{ persister_admin_connector_port }}
 # Dropwizard 0.7.0 includes a version of Jetty with admin thread issues on large machines, this works around it
+{% if ansible_processor_vcpus > 16 %}
   adminMaxThreads: {{ ansible_processor_vcpus * 2 }}
+{% endif %}
