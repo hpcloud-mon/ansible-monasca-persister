@@ -1,4 +1,6 @@
 ---
+# ©Copyright 2015 Hewlett-Packard Development Company, L.P.
+
 database_type: influxdb
 influxdb_db: mon
 monasca_conf_dir: /etc/monasca
