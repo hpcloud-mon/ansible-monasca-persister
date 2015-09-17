@@ -1,6 +1,7 @@
 [Unit]
 Description=Monasca Persister
-After=kafka.service influxdb.service
+Requires=network.manager
+After=network.manager
 
 [Service]
 Type=simple
