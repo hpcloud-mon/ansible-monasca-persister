@@ -1,7 +1,79 @@
 ---
 # ©Copyright 2015 Hewlett-Packard Development Company, L.P.
 
-- name: pip install monasca-perister
-  pip: name=monasca-persister version="{{monasca_persister_version}}" virtualenv="{{monasca_virtualenv_dir}}"
+- name: create persister python dir
+  file: path={{ monasca_persister_python_dir }} state=directory owner=root group=root mode=755
+
+- name: python | update apt cache
+  apt: update_cache=yes cache_valid_time=3600
+
+- name: Upgrade pip in virtualenv
+  pip: name=pip state=latest virtualenv="{{monasca_persister_python_dir}}"
+
+- name: python | install python packages
+  action: apt pkg={{ item }} state=latest
+  with_items:
+    - git
+    - python-dev
+    - libmysqlclient-dev
+
+- name: python | git clone monasca-persister
+  git: >
+    repo=https://git.openstack.org/openstack/monasca-persister
+    dest={{ monasca_persister_python_dir }}/monasca-persister
   notify:
     - restart monasca-persister
+  register: monasca_persister_clone
+
+# example patch section to merge in monasca-persister changes that are pending review
+
+#- name: python | create required patch
+#  shell: git fetch https://review.openstack.org/openstack/monasca-persister refs/changes/62/240962/1 && git format-patch -1 --stdout FETCH_HEAD > 1.patch
+#  args:
+#    chdir: "{{ monasca_persister_python_dir }}/monasca-persister"
+#  when: (monasca_persister_clone|changed)
+#
+#- name: python | apply required patch
+#  shell: git apply 1.patch
+#  args:
+#    chdir: "{{ monasca_persister_python_dir }}/monasca-persister"
+#  when: (monasca_persister_clone|changed)
+
+# ---- end of patch section
+
+- name: python | create a source distribution
+  shell: python setup.py sdist
+  args:
+    chdir: "{{ monasca_persister_python_dir }}/monasca-persister"
+    creates: "{{ monasca_persister_python_dir }}/monasca-persister/dist"
+  register: monasca_persister_sdist
+
+- name: python | register source distribution
+#  shell: ls -td {{ monasca_persister_python_dir }}/monasca-persister/dist/monasca-persister-*.tar.gz
+  shell: ls -td {{ monasca_persister_python_dir }}/monasca-persister/dist/monasca-persister-*.tar.gz | head -1
+  register: monasca_persister_src_dist
+  when: (monasca_persister_sdist|changed)
+
+- name: python | pip install monasca-persister
+  pip: >
+    name={{ monasca_persister_src_dist.stdout }}
+    virtualenv={{ monasca_persister_python_dir }}
+    extra_args='--pre --allow-all-external --allow-unverified simport'
+  notify:
+    - restart monasca-persister
+  when: (monasca_persister_sdist|changed)
+
+- name: python | find monasca_persister in virtualenv
+  shell: find $(pwd)/lib -name monasca_persister
+  args:
+    chdir: "{{ monasca_persister_python_dir }}"
+  register: venv_monasca_persister
+
+- name: python | symlink python persister
+  file: >
+    src={{ venv_monasca_persister.stdout }}
+    dest={{ monasca_persister_python_dir }}/monasca_persister
+    owner=root
+    group=root
+    state=link
+

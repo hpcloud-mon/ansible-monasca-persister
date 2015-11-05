@@ -46,11 +46,28 @@ max_buffer_size = 32768
 # Path in zookeeper for kafka consumer group partitioning algo
 zookeeper_path = /persister_partitions/metrics
 
+[drivers]
+# The driver to use for persisting data to the database
+{% if database_type == 'cassandra' %}
+persister_driver = drivers.cassandra.driver:CassandraDriver
+{% else %}
+persister_driver = drivers.influxdb.driver:InfluxDBDriver
+{% endif %}
+
 [influxdb]
-database_name = "{{influxdb_db}}"
-ip_address = "{{influxdb_host}}"
+database_name = {{influxdb_db}}
+ip_address = {{influxdb_host}}
 port = 8086
-user = "{{influxdb_user}}"
-password = "{{influxdb_password}}"
+user = {{influxdb_user}}
+password = {{influxdb_password}}
+
+[cassandra]
+keyspace_name = {{ cassandra_keyspace }}
+# initial contact points before node discovery
+# One or more IP Addresses separated by commas
+contact_points = {{ cassandra_host }}
+port = 9042
+user = {{ cassandra_user }}
+password = {{ cassandra_password }}
 
 
