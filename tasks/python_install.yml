@@ -49,7 +49,6 @@
   register: monasca_persister_sdist
 
 - name: python | register source distribution
-#  shell: ls -td {{ monasca_persister_python_dir }}/monasca-persister/dist/monasca-persister-*.tar.gz
   shell: ls -td {{ monasca_persister_python_dir }}/monasca-persister/dist/monasca-persister-*.tar.gz | head -1
   register: monasca_persister_src_dist
   when: (monasca_persister_sdist|changed)
@@ -77,3 +76,37 @@
     group=root
     state=link
 
+#------
+
+# need to install monasca-common from source to get the latest changes
+
+- name: python | git clone monasca-common
+  git: >
+    repo=https://git.openstack.org/openstack/monasca-common
+    dest={{ monasca_persister_python_dir }}/monasca-common
+  notify:
+    - restart monasca-persister
+  register: monasca_common_clone
+
+- name: python | create a source distribution
+  shell: python setup.py sdist
+  args:
+    chdir: "{{ monasca_persister_python_dir }}/monasca-common"
+    creates: "{{ monasca_persister_python_dir }}/monasca-common/dist"
+  register: monasca_common_sdist
+
+- name: python | register source distribution
+  shell: ls -td {{ monasca_persister_python_dir }}/monasca-common/dist/monasca-common-*.tar.gz | head -1
+  register: monasca_common_src_dist
+  when: (monasca_common_sdist|changed)
+
+- name: python | pip install monasca-common
+  pip: >
+    name={{ monasca_common_src_dist.stdout }}
+    virtualenv={{ monasca_persister_python_dir }}
+    extra_args='--pre --allow-all-external --allow-unverified simport'
+  notify:
+    - restart monasca-persister
+  when: (monasca_common_sdist|changed)
+
+#------
