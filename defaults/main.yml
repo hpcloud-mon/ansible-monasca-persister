@@ -16,5 +16,5 @@ persister_app_connector_port: 8090
 run_mode: Deploy
 skip_install: False
 monasca_persister_version: 0.1.12
-monasca_virtualenv_dir: /opt/monasca
+monasca_persister_python_dir: /opt/monasca-persister
 

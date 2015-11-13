@@ -18,13 +18,9 @@
   file: path={{monasca_jar_dir}}/vertica/vertica_jdbc.jar mode=644
   when: database_type == 'vertica'
 
-- name: create conf_dir
-  file: path={{monasca_conf_dir}} state=directory owner=root group={{monasca_group}} mode=775
-
-- name: create conf_file from template
-  template: dest={{persister_java_conf_file}} owner={{persister_user}} group={{monasca_group}} mode=640 src=persister-config.yml.j2
-  notify:
-    - restart monasca-persister
+# The persister-config.yml is installed in configure.yml. It is for the java persister only.
+# However, running the monasca-setup for the monasca-agent fails if it is absent.
+# For now, always install it for the benefit of the monasca-agent
 
 - name: create systemd startup script from template
   template: dest={{persister_systemd_service}} owner=root group=root mode=644 src=monasca-persister-java.service.j2
